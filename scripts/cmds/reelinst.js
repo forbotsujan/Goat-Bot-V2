@@ -12,7 +12,7 @@ module.exports = {
   config: {
     name: "reel",
     aliases: [],
-    author: "kshitiz (modified by Clyde J'vsk)",
+    author: "kshitiz",
     version: "1.2",
     shortDescription: {
       en: "View Instagram reel by username",
