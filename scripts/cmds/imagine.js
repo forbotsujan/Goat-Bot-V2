@@ -1,10 +1,11 @@
 const axios = require('axios');
+const badWords = ["sex","hentai","pussy","dick","xxx","porn","nude","sexy","🍑","🔞","👅","🫦","💋","🔥","🤒","🥵","🤭","puti","lado","ass","fuck","suck","puti","dickless","kera","banana","🍌","hot","yuri","🥒","🩸","🤤","cucumber","🖕"];
 
 module.exports = {
   config: {
     name: "imagine",
     version: "1.1",
-    author: "OtinXSandip + milan",
+    author: "OtinXSandip",
     countDown: 10,
     role: 0,
     shortDescription: {
@@ -50,6 +51,11 @@ module.exports = {
     if (!text) {
       return message.reply("Please provide a prompt.");
     }   
+    for (const word of badWords) {
+      if (text.includes(word)) {  return message.reply({
+          body: "Sorry, but you are not allowed to use that word."  });
+      }
+    }
 
     let prompt, model;
     if (text.includes("|")) {
@@ -62,14 +68,14 @@ module.exports = {
     }
     message.reply("✅| Creating your Imagination...", async (err, info) => {
       let ui = info.messageID;
-      api.setMessageReaction("⏳", event.messageID, () => {}, true);
+api.setMessageReaction("⏳", event.messageID, () => {}, true);
       try {
-        const response = await axios.get(`https://shivadon.onrender.com/test?prompt=${encodeURIComponent(prompt)}&model=${model}`);
-        api.setMessageReaction("✅", event.messageID, () => {}, true);
+        const response = await axios.get(`https://sandip-gen.onrender.com/test?prompt=${encodeURIComponent(prompt)}&model=${model}`);
+api.setMessageReaction("✅", event.messageID, () => {}, true);
         const img = response.data.combinedImageUrl;
         message.unsend(ui);
         message.reply({
-          body: "Here's your imagination 🖼.\nPlease reply with the image number (1, 2, 3, 4) to get the corresponding image in high resolution.",
+          body: `Here's your imagination 🖼.\nPlease reply with the image number (1, 2, 3, 4) to get the corresponding image in high resolution.`,
           attachment: await global.utils.getStreamFromURL(img)
         }, async (err, info) => {
           let id = info.messageID;
@@ -86,6 +92,7 @@ module.exports = {
       }
     });
   },
+
 
   onReply: async function ({ api, event, Reply, usersData, args, message }) {
     const reply = parseInt(args[0]);
