@@ -22,7 +22,7 @@ module.exports = {
   config: {
     name: "tiktok",
     aliases: [],
-    author: "kshitiz au (modified by CLYDE JVSK)",  // Updated author information
+    author: "kshitiz au",  // Updated author information
     version: "1.1",  // Updated version number
     shortDescription: {
       en: "Play TikTok video",
