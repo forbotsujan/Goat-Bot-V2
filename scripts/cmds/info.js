@@ -1,43 +1,68 @@
-const { getStreamFromURL } = require("fb-watchman");
+const moment = require('moment-timezone');
+
 module.exports = {
   config: {
     name: "info",
-    version: 2.0,
-    author: "OtinXSandip",
-    longDescription: "info about bot and owner",
-    category: "ai",
-    guide: {
-      en: "{p}{n}",
+    version: "1.0",
+    author: "AYANFE ÑÎMÌ",
+    role: 0,
+    cooldown: 5,
+    shortDescription: {
+      vi: "",
+      en: "Sends information about the bot and admin."
     },
+    longDescription: {
+      vi: "",
+      en: "Sends information about the bot and admin."
+    },
+    category: "utility",
+    guide: {
+      en: "{pn}"
+    },
+    envConfig: {}
   },
-  
-  onStart: async function ({ api, event, args, message, usersData }) {
-    const imgURL = "https://i.imgur.com/IeayQiT.jpeg";
-    const attachment = await global.utils.getStreamFromURL(imgURL);
 
-    const id = event.senderID;
-    const userData = await usersData.get(id);
-    const name = userData.name;
+  onStart: async function ({ message, prefix }) {
+    const botPrefix = prefix; // Use the provided bot prefix
+    const authorName = "clyde j'vsk";
+    const authorFB = "https://www.facebook.com/YOUgoTmeee";
 
-    const ment = [{ id: id, tag: name }];
-    const a = "sweetie";
-    const b = " + ";
-    const c = "Clyde Jvsk";
-const e = "Male";
-    const d = "https://www.facebook.com/YOUgoTmeee";
-const f = "CLYDE";
-const g = "in a relationship with your mother";
+    const now = moment();
+    const date = now.format('MMMM Do YYYY');
+    const time = now.format('h:mm:ss A');
 
-    message.reply({ 
-      body: `${name}, here is the information 🌝
-🌺 Bot's Name: ${a}
-🌺 Bot's prefix: ${b}  
-🌺 Owner: ${c}
-🌺 Gender: ${e}
-🌺 Messenger: ${d}
-🌺 Tiktok: ${f}
-🌺 Relationship: ${g}`,
-mentions: ment,
-      attachment: attachment });
+    const uptime = process.uptime();
+    const seconds = Math.floor(uptime % 60);
+    const minutes = Math.floor((uptime / 60) % 60);
+    const hours = Math.floor((uptime / (60 * 60)) % 24);
+    const days = Math.floor(uptime / (60 * 60 * 24));
+    const uptimeString = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+
+    const additionalText = "";
+
+    // Combine the bot information and additional text in a single message
+message.reply(`======[𝗕𝗼𝘁 𝗶𝗻𝗳𝗼:]======
+𝗕𝗼𝘁 𝗽𝗿𝗲𝗳𝗶𝘅: ${botPrefix}
+
+𝗕𝗼𝘁 𝗻𝗮𝗺𝗲 : sweetie 🩷
+
+𝗢𝘄𝗻𝗲𝗿: ${authorName}
+ 
+𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸: [${authorName}] ${authorFB}
+
+ 𝗗𝗮𝘁𝗲: ${date}
+
+𝗧𝗶𝗺𝗲: ${time}
+
+𝗨𝗽𝘁𝗶𝗺𝗲: ${uptimeString}
+      
+      ${additionalText}
+    `);
+  },
+
+  onChat: async function ({ event, message, getLang, prefix }) {
+    if (event.body && event.body.toLowerCase() === "info") {
+      this.onStart({ message, prefix });
+    }
   }
-};
+};s
