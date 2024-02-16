@@ -1,51 +1,45 @@
 const axios = require("axios");
-const request = require("request");
 const fs = require("fs");
+const path = require("path");
 
 module.exports = {
   config: {
-    name: "shoti",
-    aliases: [],
+    name: "wifey",
+    aliases: ["shoti"],
+    author: "Kshitiz",
     version: "1.0",
-    author: "kshitiz",
-    countDown: 20,
+    cooldowns: 10,
     role: 0,
-    shortDescription: "get a temporary shoti haha",
-    longDescription: "get a temporary shoti",
+    shortDescription: "Get random wifey ",
+    longDescription: "Get random wifey video",
     category: "fun",
-    guide: "{pn} shoti",
+    guide: "{p}wifey",
   },
-  onStart: async function ({ api, event, message }) {
+
+  onStart: async function ({ api, event, args, message }) {
+    api.setMessageReaction("🕐", event.messageID, (err) => {}, true);
+
     try {
+      const response = await axios.get(`https://wifey-shoti.onrender.com/kshitiz`, { responseType: "stream" });
 
-      message.reply("🕰 | Searching for shoti...");
+      const tempVideoPath = path.join(__dirname, "cache", `${Date.now()}.mp4`);
 
-      const response = await axios.post("https://your-shoti-api.vercel.app/api/v1/get", {
-        apikey: "$shoti-1hecj3cvm6r1mf91948",
-      });
+      const writer = fs.createWriteStream(tempVideoPath);
+      response.data.pipe(writer);
 
-      const file = fs.createWriteStream(__dirname + "/cache/shoti.mp4");
+      writer.on("finish", async () => {
+        const stream = fs.createReadStream(tempVideoPath);
 
-      const rqs = request(encodeURI(response.data.data.url));
-      rqs.pipe(file);
+        message.reply({
+          body: `Random Wifey Vidoes.`,
+          attachment: stream,
+        });
 
-      file.on("finish", async () => {
-
-        await api.sendMessage(
-          {
-            body: `@${response.data.data.user.username}`,
-            attachment: fs.createReadStream(__dirname + "/cache/shoti.mp4"),
-          },
-          event.threadID,
-          event.messageID
-        );
-      });
-
-      file.on("error", (err) => {
-        api.sendMessage(`Shoti Error: ${err}`, event.threadID, event.messageID);
+        api.setMessageReaction("✅", event.messageID, (err) => {}, true);
       });
     } catch (error) {
-      api.sendMessage("An error occurred while generating video:" + error, event.threadID, event.messageID);
+      console.error(error);
+      message.reply("Sorry, an error occurred while processing your request.");
     }
-  },
+  }
 };
