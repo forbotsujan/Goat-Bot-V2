@@ -1,5 +1,5 @@
 const axios = require('axios');
-const badWords = ["sex","hentai","pussy","dick","xxx","porn","nude","sexy","🍑","🔞","👅","🫦","💋","🔥","🤒","🥵","🤭","puti","lado","ass","fuck","suck","puti","dickless","kera","banana","🍌","hot","yuri","🥒","🩸","🤤","cucumber","🖕"];
+const badWords = ["sex","hentai","pussy","dick","xxx","porn","nude"];
 
 module.exports = {
   config: {
@@ -70,7 +70,7 @@ module.exports = {
       let ui = info.messageID;
 api.setMessageReaction("⏳", event.messageID, () => {}, true);
       try {
-        const response = await axios.get(`https://sandip-gen.onrender.com/test?prompt=${encodeURIComponent(prompt)}&model=${model}`);
+        const response = await axios.get(`https://roxx-sandip.onrender.com/test?prompt=${encodeURIComponent(prompt)}&model=${model}`);
 api.setMessageReaction("✅", event.messageID, () => {}, true);
         const img = response.data.combinedImageUrl;
         message.unsend(ui);
