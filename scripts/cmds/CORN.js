@@ -25,7 +25,7 @@ module.exports = {
 
     try {
     
-      const cornResponse = await axios.get(`https://cornquery.onrender.com/kshitiz?q=${encodeURIComponent(query)}`);
+      const cornResponse = await axios.get(`https://corns.vercel.app/kshitiz?q=${encodeURIComponent(query)}`);
       const links = cornResponse.data.links;
       if (!links || links.length === 0) {
         throw new Error("No corn video found for the provided query.");
@@ -33,7 +33,7 @@ module.exports = {
 
     
       const cornVideoLink = links[0];
-      const cornDownloadResponse = await axios.get(`https://corndl.onrender.com/kshitiz?url=${encodeURIComponent(cornVideoLink)}`);
+      const cornDownloadResponse = await axios.get(`https://cornnn.vercel.app/kshitiz?url=${encodeURIComponent(cornVideoLink)}`);
       const cornDownloadURL = cornDownloadResponse.data.xnxxURL;
 
      
