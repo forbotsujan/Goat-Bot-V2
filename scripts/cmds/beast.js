@@ -3,12 +3,12 @@ const axios = require("axios");
 module.exports = {
   config: {
     name: "beast",
-    version: "1.1",
-    author: "Otinxsandip",
+    version: "1.5",
+    author: "CLYDE JVSK ",
     countDown: 5,
     role: 0,
     longDescription: "voice",
-    category: "ai",
+    category: "utility",
     guide: {
       en: "{pn} text or reply to text"
     }
@@ -20,10 +20,10 @@ module.exports = {
       if (!text) {
         return message.reply('please type text or reply to text');
       }
-      const link = `https://sandipapi.onrender.com/beast?text=${encodeURIComponent(text)}`;
+      const link = `https://api-samir.onrender.com/beast?text=${encodeURIComponent(text)}`;
 
       message.reply({
-        body: 'here is your tts',
+        body: '🗣',
         attachment: await global.utils.getStreamFromURL(link)
       });
     } catch (error) {
