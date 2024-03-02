@@ -1,8 +1,8 @@
 {
   "facebookAccount": {
-    "email": "",
-    "password": "",
-    "2FASecret": "https//",
+    "email": "etsg855@gmail.com",
+    "password": "CClyde#17",
+    "2FASecret": "",
     "i_user": "",
     "proxy": null,
     "userAgent": "Mozilla/5.0 (Linux; Android 12; M2102J20SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Mobile Safari/537.36",
@@ -16,16 +16,18 @@
   "adminBot": [
     "100073100306986",
     "100093091643991",
+    "61556291038049",
+    "100092510683212",
+    "100026027712856",
     "100023131220727",
-    "100053108048045",
-    "61556160694443"
+    "61556797413007"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "sweetie",
+  "nickNameBot": "Lexi",
   "prefix": "+",
   "database": {
     "type": "sqlite",
