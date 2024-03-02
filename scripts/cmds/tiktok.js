@@ -10,7 +10,7 @@ async function getStreamFromURL(url) {
 
 async function fetchTikTokVideos(keyword) {
   try {
-    const response = await axios.get(`https://tiktok-0woq.onrender.com/kshitiz?keyword=${keyword}`);
+    const response = await axios.get(`https://tiktok-ivory-nine.vercel.app/kshitiz?keyword=${keyword}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -22,13 +22,13 @@ module.exports = {
   config: {
     name: "tiktok",
     aliases: [],
-    author: "kshitiz au",  // Updated author information
-    version: "1.1",  // Updated version number
+    author: "kshitiz",
+    version: "1.0",
     shortDescription: {
       en: "Play TikTok video",
     },
     longDescription: {
-      en: "Play a random TikTok video based on the provided keyword",
+      en: "Play a TikTok video by providing keyword",
     },
     category: "fun",
     guide: {
@@ -50,7 +50,6 @@ module.exports = {
       return;
     }
 
-    // Choose a random video from the fetched list
     const randomIndex = Math.floor(Math.random() * videos.length);
     const selectedVideo = videos[randomIndex];
     const videoUrl = selectedVideo.videoUrl;
@@ -71,8 +70,5 @@ module.exports = {
       console.error(error);
       api.sendMessage({ body: 'An error occurred while processing the video.\nPlease try again later.' }, event.threadID, event.messageID);
     }
-  },
-  onReply: async function ({ api, event, Reply, args }) {
-    // ... (unchanged code)
   },
 };
