@@ -14,13 +14,8 @@
   "notesLanguage": "change to your language with ISO 639-1 code, available languages: vi (Vietnamese), en (English)",
   "adminOnly": true,
   "adminBot": [
-    "100073100306986",
-    "100093091643991",
-    "61556291038049",
-    "100092510683212",
-    "100026027712856",
-    "100023131220727",
-    "61556797413007"
+    "100073100306986"
+    
   ],
   "whiteListMode": {
     "enable": false,
