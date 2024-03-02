@@ -1,67 +1,44 @@
-const axios = require("axios");
+const axios = require('axios');
 
- module.exports = {
+module.exports = {
   config: {
-    name: "generate",
-aliases: ['gen'],
-    version: "1.1",
-    author: "OtinXSandip",
-    countDown: 10,
-    role: 2,
-    shortDescription: {
+    name: 'gen',
+    version: '1.0',
+    author: 'OtinXSandip',
+    countDown: 0,
+    role: 0,
+    longDescription: {
       en: 'Text to Image'
     },
-    longDescription: {
-      en: "Text to image"
-    },
-    category: "image",
+    category: 'ai',
     guide: {
-      en: '{pn} your prompt | Type' +
-        ' here are supported models:' +
-        '\n' +
-        ' 1: Analog-Diffusion-1.0' +
-        '\n 2: Anything V3' +
-        '\n 3: Anything V4.5' +
-        '\n 4: AOM3A3' +
-        '\n 5: Deliberate V2' +
-        '\n 6: Dreamlike-Diffusion-1.0' +
-        '\n 7: Dreamlike-Diffusion-2.0' +
-        '\n 8: Dreamshaper 5Baked vae' +
-        '\n 9: Dreamshaper 6Baked vae' +
-        '\n 10: Elldreths-Vivid-Mix' +
-        '\n 11: Lyriel_V15' +
-        '\n 12: Lyriel_V16' +
-        '\n 13: Mechamix_V10' +
-        '\n 14: Meinamix_Meinav9' +
-        '\n 15: Openjourney_V4' +
-        '\n 16: Portrait+1.0' +
-        '\n 17: Realistic_Vision_V1.4' +
-        '\n 18: Realistic_Vision_V2.0' +
-        '\n 19: revAnimated_v122' +
-        '\n 20: sdv1_4' +
-        '\n 21: V1' +
-        '\n 22: shoninsBeautiful_v10' +
-        '\n 23: Theallys-MIX-II-CHURNED' +
-        '\n 24: Timeless-1.0'
+      en: '{pn} prompt'
     }
   },
+
   onStart: async function ({ message, api, args, event }) {
-    const text = args.join(' ');
-
-    if (!text) {
-      return message.reply("😡Please provide a prompt with models");
+    const ass = args.join(' ');
+    
+    if (!ass) {
+      return message.reply("😡Please provide a prompt ");
     }
-
-    const [prompt, model] = text.split('|').map((text) => text.trim());
-    const puti = model || "19";
-    const baseURL = `https://sandipapi.onrender.com/gen?prompt=${prompt}&model=${puti}`;
-
     api.setMessageReaction("⏳", event.messageID, () => {}, true);
+    
+    const startTime = new Date().getTime(); 
+    
+    message.reply("✅| Generating please wait.", async (err, info) => { 
+      const lado = `https://roxx-sandip.onrender.com/gen?prompt=${ass}`;
+      const puti = await axios.get(lado);
+      const bubu = puti.data.url;
+ 
 
-    message.reply("✅| Generating please wait.", async (err, info) => {
-      message.reply({
-        attachment: await global.utils.getStreamFromURL(baseURL)
+      const endTime = new Date().getTime(); 
+      const timeTaken = (endTime - startTime) / 1000; 
+      message.reply({ 
+        body: `Here is your imagination 🥰\nTime taken: ${timeTaken} seconds`,
+        attachment: await global.utils.getStreamFromURL(bubu)
       });
+      
       let ui = info.messageID;
       message.unsend(ui);
       api.setMessageReaction("✅", event.messageID, () => {}, true);
